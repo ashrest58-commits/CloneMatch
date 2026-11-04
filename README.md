@@ -48,26 +48,21 @@ We provide a script to process the input files (.iqtree.tree files and \_cluster
 bash  
 Rscript ConcorTest\_clean1.r Tree=\<TREE FILE\> CloID=\<CLUSTER FILE\>
 
-**Run one sample:**
-
-bash  
-Rscript ConcorTest\_clean1.r Tree="Input/LE1.all-cell-types.iqtree.tree" CloID="Input/Initial/LE1\_clusters[.tsv.gz](http://.tsv.gz)"
-
-**Run several samples:**
-
-bash  
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15;do Rscript ConcorTest\_clean1.r Tree="/home/esl/Desktop/scRNAphyloData/Final/AML1per/LE\${i}.all-cell-types.iqtree.tree" CloID="/home/esl/Desktop/scRNAphyloData/Final/AML1per/Initial/LE\${i}/LE\${i}/initial/[clusters.tsv.gz](http://clusters.tsv.gz)"  
-done
-
 **Example input**
 
 Input  
 ├── Initial  
-│   └── LE1\_clusters[.tsv.gz](http://.tsv.gz)      	 (cluster assignment)  
-├── LE1.all-cell-types.iqtree.tree	 (cell phylogeny)	
+│   └── LE1\_clusters[.tsv.gz](http://.tsv.gz)      	  (cluster assignment)  
+├── LE1.all-cell-types.iqtree.tree	                      (cell phylogeny)	
+
+###write about input files and where they come form.also write that the input files can be generated using scPhylogeny pipeline (link it)
+
+**Run one sample:**
+bash  
+Rscript ConcorTest\_clean1.r Tree="Input/LE1.all-cell-types.iqtree.tree" CloID="Input/Initial/LE1\_clusters[.tsv.gz](http://.tsv.gz)"
+#change file name, it is to long
 
 **Example output**
-
 Output  
 └── LE1  
     ├── LE1.all-cell-types.iqtree.tree.png		          (tree colored by original clusters)  
@@ -78,3 +73,5 @@ Output
     ├── LE1.all-cell-types.iqtree.treeConcordance.nwk       (tree after filtering, Newick)  
     ├── LE1.all-cell-types.iqtree.treeCellCount.txt        (cells per cluster before and after filtering)  
     └── LE1.all-cell-types.iqtree.treeConcordanceCellAnno.txt (merged clone ID of each retained cell) 
+#change output name, this too long
+#explain outcomes
