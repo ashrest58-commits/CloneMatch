@@ -78,5 +78,29 @@ test.iqtree.treeCellCount.txt: A text file containing information about the orig
 
 test.iqtree.treeConcordanceCellAnno.txt: A text file that contains information about the lineage annotation or clone\_ID for each cell.
 
+##Citation
+If you use this workflow, please cite:
+
+Anita Shrestha¹, Sayaka Miura¹* (Manuscript in progress) CloneMatch: Genetic Lineages from Single-Cell RNA Sequencing through Concordance of Clustering and Phylogenetic Inference
+
+##REFERENCES
+- Becker, W.R. et al., 2022. Single-cell analyses define a continuum of cell state and composition changes in the malignant transformation of polyps to colorectal cancer. Nature Genetics, 54(7), pp.985–995.
+- Dagogo-Jack, I. & Shaw, A.T., 2018. Tumour heterogeneity and resistance to cancer therapies. Nature Reviews. Clinical Oncology, 15(2), pp.81–94.
+- Ding, J. et al., 2018. Reconstructing differentiation networks and their regulation from time series single-cell expression data. Genome Research, 28(3), pp.383–395.
+- Fu, Y.-C. et al., 2025. Intratumoral heterogeneity and drug resistance in cancer. Cancer Cell International, 25(1), p.103.
+Kolodziejczyk, A.A. et al., 2015. The technology and biology of single-cell RNA sequencing. Molecular Cell, 58(4), pp.610–620.
+- Leong, T.L. et al., 2019. Deep multi-region whole-genome sequencing reveals heterogeneity and gene-by-environment interactions in treatment-naive, metastatic lung cancer. Oncogene, 38(10), pp.1661–1675.
+- Li, B., Yu, L. & Gao, L., 2022. Cancer classification based on multiple dimensions: SNV patterns. Computers in Biology and Medicine, 151(Pt A), p.106270.
+- Lu, J. et al., 2023. scRNA-seq data analysis method to improve analysis performance. IET Nanobiotechnology, 17(3), pp.246–256.
+- Muyas, F. et al., 2024. De novo detection of somatic mutations in high-throughput single-cell profiling data sets. Nature Biotechnology, 42(5), pp.758–767.
+- Peng, Y. et al., 2020. Integrated analysis of optical mapping and whole-genome sequencing reveals intratumoral genetic heterogeneity in metastatic lung squamous cell carcinoma. Translational Lung Cancer Research, 9(3), pp.670–681.
+- Poirion, O. et al., 2018. Using single nucleotide variations in single-cell RNA-seq to identify subpopulations and genotype-phenotype linkage. Nature Communications, 9(1), p.4892.
+- Quintana, E. et al., 2010. Phenotypic heterogeneity among tumorigenic melanoma cells from patients that is reversible and not hierarchically organized. Cancer Cell, 18(5), pp.510–523.
+- Wagner, D.E. & Klein, A.M., 2020. Lineage tracing meets single-cell omics: opportunities and challenges. Nature Reviews. Genetics, 21(7), pp.410–427.
+- Zhang, J. et al., 2026. Tumor heterogeneity: development, mechanisms, and therapeutic implications. Signal Transduction and Targeted Therapy, 11(1), p.271.
+- Zhan, Y. et al., 2025. Single-cell transcriptomics reveals intratumor heterogeneity and the potential roles of cancer stem cells and myCAFs in colorectal cancer liver metastasis and recurrence. Cancer Letters, 612(217452), p.217452.
+- Zhou, Z. et al., 2020. DENDRO: genetic heterogeneity profiling and subclone detection by single-cell RNA sequencing. Genome Biology, 21(1), p.10.
+- Zimmermann, N. et al., 2026. Phylogenetic tree inference from single-cell RNA sequencing data with SCITE-RNA. Genome Biology, 27(1), p.195.
+
 ## License
 CloneMatch is distributed under the GNU GPL v3. For more information, see [license(LICENSE)
