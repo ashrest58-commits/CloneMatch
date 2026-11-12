@@ -78,3 +78,5 @@ test.iqtree.treeCellCount.txt: A text file containing information about the orig
 
 test.iqtree.treeConcordanceCellAnno.txt: A text file that contains information about the lineage annotation or clone\_ID for each cell.
 
+## License
+CloneMatch is distributed under the GNU GPL v3. For more information, see [license(LICENSE)
