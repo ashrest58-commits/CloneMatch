@@ -10,19 +10,13 @@ CloneMatch requires user-provided cluster assignments and a cellular phylogeny a
 
 CloneMatch tests whether each pair of clusters occupies a distinct clade on the cellular phylogeny, since cells from the same genetic lineage should be more closely related than cells from different lineages.
 
-For clusters A and B, the observed distance (*Dobs*,) is the mean topological distance (number of edges) between all cell pairs across the two clusters. Edges are used instead of branch lengths, which can be unreliable in phylogenies from sparse SNV data. Cluster labels are then permuted between the two clusters (preserving cluster sizes) to obtain the null distance (*Dperm*), and the effect size is:
-
- *d*(A, B) \= *Dobs*(A, B) – mean\[*Dperm*(A, B)\]
-
-Cluster pairs are classified as overlapping (*d* \< 1), weakly overlapping (1 ≤ *d* ≤ 2), or separated (*d* \> 2\)
-
 #### ***Step 2: Merging overlapping clusters***
 
-Overlapping cluster pairs are connected in a graph (nodes \= clusters, edges \= overlapping pairs). Each connected component becomes one merged lineage. This allows indirect merging: clusters A and C are merged if both overlap with B, even if A and C overlap only weakly or not at all. If all clusters merge into one group, CloneMatch reports a single candidate lineage, meaning the phylogeny does not support subdivision under the specified criteria.
+Overlapping cluster pairs are connected in a graph (nodes \= clusters, edges \= overlapping pairs). Each connected component becomes one merged lineage..
 
 #### ***Step 3: Filtering cells for phylogenetic consistency***
 
-For each cell, CloneMatch compares its mean distance to the other cells of its own lineage with its mean distance to each other lineage (one-sided t-test). A cell is retained only if it is significantly closer to its own lineage than to every other lineage (P \< 0.05); otherwise it is removed from the phylogeny. The remaining tree and cell assignments define the final lineages.
+For each cell, CloneMatch compares its mean distance to the other cells of its own lineage with its mean distance to each other lineage (one-sided t-test).
 
 ***Outputs***
 
@@ -30,48 +24,57 @@ For each cell, CloneMatch compares its mean distance to the other cells of its o
 - cell-level within-lineage and between-lineage distances, the original and merged cluster IDs, and the status of filtering in the final annotation  
 - filtered phylogeny in Newick format and phylogenetic visualizations colored by original cluster, merged cluster and final lineage assignments.
 
-**Data Description**
-
-**Study Data**
-
-Acute Myeloid Leukemia (AML) dataset
-
-Single-cell RNA sequencing datasets from the acute myeloid leukemia (AML) patients with tumor heterogeneity to assess how CloneMatch can be used to integrate two lineage annotation approaches \- clustering-based and phylogeny-based, each with certain limitations, to get a genetic lineages supported by both approaches.  
-
-* LE1 sample from an individual with acute myeloid leukemia (AML)
-
 **Processing data**
 
-We provide a script to process the input files (.iqtree.tree files and \_cluster.tsv files) of sample LE1. The pipeline matches the clusters to the tips (individual cells) of the tree, merges the cluster pairs that overlap based on the phylogenetic distances, filters out the cells that are farther than the cells of its own lineage as compared to the cells in other lineages, and generates the final tree with lineage annotation that is supported by both the approaches. The resulting sample output data is stored in the CloneMatch projects output directory (see directory tree structure below).  
-**Example usage:**
-
-bash  
-Rscript ConcorTest\_clean1.r Tree=\<TREE FILE\> CloID=\<CLUSTER FILE\>
+We provide a script to process the input files (.iqtree.tree files and \_cluster.tsv files). The pipeline matches the clusters to the tips (individual cells) of the tree, merges the cluster pairs that overlap based on the phylogenetic distances, filters out the cells that are farther than the cells of its own lineage as compared to the cells in other lineages, and generates the final tree with lineage annotation that is supported by both the approaches. The resulting sample output data is stored in the CloneMatch projects output directory (see directory tree structure below).
 
 **Example input**
 
 Input  
 ├── Initial  
-│   └── LE1\_clusters[.tsv.gz](http://.tsv.gz)      	  (cluster assignment)  
-├── LE1.all-cell-types.iqtree.tree	                      (cell phylogeny)	
+│   └── test\_clusters[.tsv.gz](http://.tsv.gz)      	 (cluster assignment)  
+├── test.iqtree.tree	 		 (cell phylogeny)
 
-###write about input files and where they come form.also write that the input files can be generated using scPhylogeny pipeline (link it)
+test\_clusters.tsv and test.iqtree.tree are outputs of clustering-based and cell-phylogeny based lineage annotation, which are used as inputs for CloneMatch. These files are generated from scRNAseq raw data using the scPhylogenomics pipeline, which uses SNPmanifold and IQ-TREE to generate the clusters and inferred tree, respectively ([https\://github.com/ewafula/scPhylogenomics](https://github.com/ewafula/scPhylogenomics)).
+
+**Example usage:**
+
+bash  
+CloneMatch.R Tree=\<TREE FILE\> CloID=\<CLUSTER FILE\>
 
 **Run one sample:**
+
 bash  
-Rscript ConcorTest\_clean1.r Tree="Input/LE1.all-cell-types.iqtree.tree" CloID="Input/Initial/LE1\_clusters[.tsv.gz](http://.tsv.gz)"
-#change file name, it is to long
+CloneMatach.R Tree="Input/test.iqtree.tree" CloID="Input/Initial/test\_clusters[.tsv.gz](http://.tsv.gz)"
+
+	
 
 **Example output**
+
 Output  
 └── LE1  
-    ├── LE1.all-cell-types.iqtree.tree.png		          (tree colored by original clusters)  
-    ├── LE1.all-cell-types.iqtree.treeConcordance1.txt       (per-cell distances and filtering status)  
-    ├── LE1.all-cell-types.iqtree.treeMerge.png                  (tree colored by merged clustering)  
-    ├── LE1.all-cell-types.iqtree.treeConcordance.txt         (cluster-pair test)  
-    ├── LE1.all-cell-types.iqtree.treeFilter.png	           (tree after filtering)  
-    ├── LE1.all-cell-types.iqtree.treeConcordance.nwk       (tree after filtering, Newick)  
-    ├── LE1.all-cell-types.iqtree.treeCellCount.txt        (cells per cluster before and after filtering)  
-    └── LE1.all-cell-types.iqtree.treeConcordanceCellAnno.txt (merged clone ID of each retained cell) 
-#change output name, this too long
-#explain outcomes
+    ├── test.iqtree.tree.png		          		(tree colored by original clusters)  
+    ├── test.iqtree.treeConcordance1.txt       	(cluster-pair test)  
+    ├── test.iqtree.treeMerge.png                  	(tree colored by merged clustering)  
+    ├── test.iqtree.treeConcordance.txt         	(per-cell distances and filtering status)  
+    ├── test.iqtree.treeFilter.png	           		(tree after filtering)  
+    ├── test.iqtree.treeConcordance.nwk      		(tree after filtering, Newick)  
+    ├── test.iqtree.treeCellCount.txt        		(cells per cluster before and after filtering)  
+    └── test.iqtree.treeConcordanceCellAnno.txt 	(merged clone ID of each retained cell)
+
+test.iqtree.tree.png: Visualization of an initial cell phylogeny-based tree. This gives an preliminary idea of whether the clones grouped together in a cluster-based result indeed match biological phylogeny or not. 
+
+test.iqtree.treeConcordance1.txt: A text file with an information about the distance between two clone pairs, observed distance, null mean distance, difference between observed and null mean distance, and classification of the clone pairs (overlapped, weakly overlapped, and separated)
+
+test.iqtree.treeMerge.png: Visualization of the merged tree based on the cluster-pair test. Each clone in the clusters are matched to the tips (cells) of the tree and the merged tree is generated in which the clones are usually separated into more than one lineages.
+
+test.iqtree.treeConcordance.txt: A text file containing the information about distance of a cell from other cells within its own lineage vs other lineages, based on which the cells are kept or filtered out from the final tree. Only the cells that are closest to the cells in its own lineages are retained.
+
+test.iqtree.treeFilter.png: The final filtered tree with only the cells that passed the per-cell distance filter.
+
+test.iqtree.treeConcordance.nwk: Newick format of the final filtered tree
+
+test.iqtree.treeCellCount.txt: A text file containing information about the original clone\_ID, Merged Clone\_ID, and original number of cells and retained number of cells in the final tree.
+
+test.iqtree.treeConcordanceCellAnno.txt: A text file that contains information about the lineage annotation or clone\_ID for each cell.
+
